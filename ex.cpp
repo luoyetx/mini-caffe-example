@@ -83,7 +83,8 @@ vector<Point2f> CNN::forward(const Mat &data, const string &layer) {
 
 
 void FaceDetector::LoadXML(const string &path) {
-	assert(cc.load(path));
+    bool res = cc.load(path);
+	assert(res);
 }
 
 int FaceDetector::DetectFace(const Mat &img, vector<Rect> &rects) {

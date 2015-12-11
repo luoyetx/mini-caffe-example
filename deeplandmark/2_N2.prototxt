@@ -1,9 +1,10 @@
-# This file gives the CNN model to predict all landmark in LEVEL-1
+# This file gives the CNN model to predict landmark in LEVEL-2
+name: "landmark_2_N2"
 input: "data"
 input_dim: 1
 input_dim: 1
-input_dim: 39
-input_dim: 39
+input_dim: 15
+input_dim: 15
 layer {
     name: "conv1"
     type: "Convolution"
@@ -83,98 +84,9 @@ layer {
     }
 }
 layer {
-    name: "conv3"
-    type: "Convolution"
-    bottom: "pool2"
-    top: "conv3"
-    param {
-        lr_mult: 1
-    }
-    param {
-        lr_mult: 2
-    }
-    convolution_param {
-        num_output: 60
-        kernel_size: 3
-        weight_filler {
-            type: "xavier"
-        }
-        bias_filler {
-            type: "constant"
-        }
-    }
-}
-layer {
-    name: "relu3"
-    type: "ReLU"
-    bottom: "conv3"
-    top: "conv3"
-}
-layer {
-    name: "pool3"
-    type: "Pooling"
-    bottom: "conv3"
-    top: "pool3"
-    pooling_param {
-        pool: MAX
-        kernel_size: 2
-        stride: 2
-    }
-}
-layer {
-    name: "conv4"
-    type: "Convolution"
-    bottom: "pool3"
-    top: "conv4"
-    param {
-        lr_mult: 1
-    }
-    param {
-        lr_mult: 2
-    }
-    convolution_param {
-        num_output: 80
-        kernel_size: 2
-        weight_filler {
-            type: "xavier"
-        }
-        bias_filler {
-            type: "constant"
-        }
-    }
-}
-layer {
-    name: "relu4"
-    type: "ReLU"
-    bottom: "conv4"
-    top: "conv4"
-}
-layer {
-    name: "pool3_flat"
-    type: "Flatten"
-    bottom: "pool3"
-    top: "pool3_flat"
-}
-layer {
-    name: "conv4_flat"
-    type: "Flatten"
-    bottom: "conv4"
-    top: "conv4_flat"
-}
-layer {
-    name: "concat"
-    type: "Concat"
-    bottom: "pool3_flat"
-    bottom: "conv4_flat"
-    top: "faker"
-    concat_param {
-      concat_dim: 1
-    }
-}
-layer {
     name: "fc1"
     type: "InnerProduct"
-    bottom: "faker"
+    bottom: "pool2"
     top: "fc1"
     param {
         lr_mult: 1
@@ -183,7 +95,7 @@ layer {
         lr_mult: 2
     }
     inner_product_param {
-        num_output: 120
+        num_output: 60
         weight_filler {
             type: "xavier"
         }
@@ -210,7 +122,7 @@ layer {
         lr_mult: 2
     }
     inner_product_param {
-        num_output: 10
+        num_output: 2
         weight_filler {
             type: "xavier"
         }

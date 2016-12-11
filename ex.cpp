@@ -61,8 +61,6 @@ CNN::CNN(const string &network, const string &model) {
 }
 
 vector<Point2f> CNN::forward(const Mat &data, const string &layer) {
-  float loss = 0.0;
-
   const vector<Blob<float>*> &intput_blobs = cnn->input_blobs();
   float *blob_data = intput_blobs[0]->mutable_cpu_data();
   const float *ptr = NULL;
@@ -73,9 +71,9 @@ vector<Point2f> CNN::forward(const Mat &data, const string &layer) {
     }
   }
 
-  cnn->ForwardPrefilled(&loss);
+  cnn->Forward();
 
-  boost::shared_ptr<caffe::Blob<float> > landmarks = cnn->blob_by_name(layer);
+  shared_ptr<caffe::Blob<float> > landmarks = cnn->blob_by_name(layer);
   vector<Point2f> points(landmarks->count() / 2);
   for (int i = 0; i < points.size(); i++) {
     Point2f &point = points[i];

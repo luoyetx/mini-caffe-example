@@ -21,8 +21,6 @@ void showLandmarks(Mat &image, Rect &bbox, vector<Point2f> &landmarks) {
 }
 
 int main(int argc, char *argv[]) {
-  google::InitGoogleLogging(argv[0]);
-  FLAGS_alsologtostderr = false;
   FaceDetector fd;
   Landmarker lder;
   fd.LoadXML("../haarcascade_frontalface_alt.xml");

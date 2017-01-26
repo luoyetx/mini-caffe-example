@@ -29,7 +29,7 @@ struct FaceDetector {
 };
 
 struct CNN {
-  caffe::Net<float> *cnn;
+  caffe::Net *cnn;
 
   CNN(const std::string &network, const std::string &model);
   std::vector<cv::Point2f> forward(const cv::Mat &data, const std::string &layer);

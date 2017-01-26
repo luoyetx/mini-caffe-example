@@ -55,13 +55,13 @@ BBox BBox::subBBox(float left, float right, float top, float bottom) const {
 
 
 CNN::CNN(const string &network, const string &model) {
-  cnn = new Net<float>(network, caffe::TEST);
+  cnn = new Net(network);
   assert(cnn);
   cnn->CopyTrainedLayersFrom(model);
 }
 
 vector<Point2f> CNN::forward(const Mat &data, const string &layer) {
-  const vector<Blob<float>*> &intput_blobs = cnn->input_blobs();
+  const vector<Blob*> &intput_blobs = cnn->input_blobs();
   float *blob_data = intput_blobs[0]->mutable_cpu_data();
   const float *ptr = NULL;
   for (int i = 0; i < data.rows; i++) {
@@ -73,7 +73,7 @@ vector<Point2f> CNN::forward(const Mat &data, const string &layer) {
 
   cnn->Forward();
 
-  shared_ptr<caffe::Blob<float> > landmarks = cnn->blob_by_name(layer);
+  shared_ptr<caffe::Blob> landmarks = cnn->blob_by_name(layer);
   vector<Point2f> points(landmarks->count() / 2);
   for (int i = 0; i < points.size(); i++) {
     Point2f &point = points[i];

@@ -34,9 +34,3 @@ git submodule add https://github.com/luoyetx/mini-caffe.git mini-caffe
 ```
 
 caffe-ex 的 CMakeLists.txt 写法参考本项目。生成工程文件便可以开始开发了。
-
-### 注意事项
-
-MSVC 会优化静态库的静态变量(程序中没有显示的引用相关变量)，导致 Caffe 中的 Layer 动态加载机制失效，我们对 VS 做如下修改。
-
-![](fix.png)

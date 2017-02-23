@@ -1,6 +1,8 @@
 caffe-ex
 ========
 
+**This project is merged into Mini-Caffe, Check [here](https://github.com/luoyetx/mini-caffe/tree/master/example).**
+
 利用 mini-caffe 在 Windows VS 开发测试 Caffe 相关项目。
 
 ### mini-caffe 安装
